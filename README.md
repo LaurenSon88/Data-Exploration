@@ -1,4 +1,6 @@
 # Data-Exploration
+The following is a compilation of SQL queries takening from Serious SQL https://www.datawithdanny.com/courses/serious-sql
+This is to show my understanding of SQL
 
 ## Select and Sort
 SELECT statement and ORDER BY clause
