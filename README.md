@@ -1,16 +1,22 @@
 # Data-Exploration
-The following is a compilation of SQL queries takening from Serious SQL https://www.datawithdanny.com/courses/serious-sql
+The following is a compilation of SQL queries takening from [Serious SQL](https://www.datawithdanny.com/courses/serious-sql)
+
 This is to show my understanding of SQL
 
 ## Select and Sort
 SELECT statement and ORDER BY clause
 
-Select all columns:      SELECT *
+Select all columns:        SELECT *
+
 OR
-Select specific columns: SELECT column_name_1, column_name_2...
-Where is the data?:      FROM schema_name.table_name
-In what order:           ORDER BY column_name_1, column_name_2...
-How many records?        LIMIT number
+
+Select specific columns:   SELECT column_name_1, column_name_2...
+
+Where is the data?         FROM schema_name.table_name
+
+In what order:             ORDER BY column_name_1, column_name_2...
+
+How many records?          LIMIT number
 
 1. What is the name of the category with the highest category_id in the dvd_rentals.category table?
 ```sql
