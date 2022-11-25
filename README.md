@@ -5,7 +5,7 @@ This is to show my understanding of SQL
 
 <details>
 <summary>
-SELECT statement and ORDER BY clause
+SELECT statement and Sort
 </summary>
 
 
@@ -17,8 +17,10 @@ Select specific columns:   `SELECT column_name_1, column_name_2...`
 
 Where is the data?         `FROM schema_name.table_name`
 
-In what order:             `ORDER BY column_name_1, column_name_2...`
+In what order:             `ORDER BY column_name_1, column_name_2...DESC`
 
+  Descending order `DESC`
+  
 How many records?          `LIMIT number`
 
 1. What is the name of the category with the highest category_id in the dvd_rentals.category table?
@@ -84,6 +86,9 @@ FROM dvd_rentals.film_list;
 ```
   
 ### Apply Aggregate Count Function & Single Column Value Counts
+  
+  We can also sort out data using the `GROUP BY` clause
+  
 4. What is the frequency of values in the rating column in the film_list table?
 ```sql
 SELECT
@@ -115,9 +120,10 @@ GROUP BY
 ORDER BY
   frequency DESC;
 ```
-> A few thing to note:
+> A few things to note:
   1. We use `ROUND` to round off to a number of decimal points i.e. 2 decimal points in the example
   2. We use `::NUMERIC` to cast an integter as a numeric data type to avoid [floor division](https://www.educative.io/answers/floor-division)
+  3. We first count the number of ratings and the divide by the total number `SUM` of the ratings.
   
 ### Counts For Multiple Column Combinations
  
