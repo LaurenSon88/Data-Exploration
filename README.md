@@ -6,7 +6,6 @@
 SELECT statement and Sort
 </summary>
 
-
 Select all columns:        `SELECT *`
 
 OR
@@ -159,4 +158,22 @@ ORDER BY
 LIMIT
   5;
 ```
+</details>
+
+<details>
+<summary>
+Identifying Duplicates
+</summary>
+</details>
+
+<details>
+<summary>
+Summary Statistics
+</summary>
+</details>
+
+<details>
+<summary>
+Distribution Functions
+</summary>
 </details>
