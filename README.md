@@ -121,7 +121,8 @@ ORDER BY
 > A few things to note:
   1. We use `ROUND` to round off to a number of decimal points i.e. 2 decimal points in the example
   2. We use `::NUMERIC` to cast an integter as a numeric data type to avoid [floor division](https://www.educative.io/answers/floor-division)
-  3. We first count the number of ratings and the divide by the total number `SUM` of the ratings.
+  3. `OVER()` is a window funtion
+  4. We first count the number of ratings and the divide by the total number `SUM` of the ratings.
   
 ### Counts For Multiple Column Combinations
  
