@@ -1,7 +1,5 @@
 # Data-Exploration
-The following is a compilation of SQL queries takening from [Serious SQL](https://www.datawithdanny.com/courses/serious-sql)
-
-This is to show my understanding of SQL
+### The following is a compilation of SQL queries takening from [Serious SQL](https://www.datawithdanny.com/courses/serious-sql) to show my understanding of SQL
 
 <details>
 <summary>
@@ -87,7 +85,7 @@ FROM dvd_rentals.film_list;
   
 ### Apply Aggregate Count Function & Single Column Value Counts
   
-  We can also sort out data using the `GROUP BY` clause
+  We can also sort our data using the `GROUP BY` clause
   
 4. What is the frequency of values in the rating column in the film_list table?
 ```sql
