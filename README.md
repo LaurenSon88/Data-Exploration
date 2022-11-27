@@ -164,6 +164,12 @@ LIMIT
 <summary>
 Identifying Duplicates
 </summary>
+
+### 3 ways of identifying duplicates
+
+#### Subqueries
+#### CTE
+#### Temp Tables
 </details>
 
 <details>
