@@ -216,30 +216,53 @@ GROUP BY
 ORDER BY frequency DESC;
 ```
 
-#### Using `WHERE` clause to show records that appear more than once `> 1`, and excluding those that only appear once.
+#### Using the `WHERE` clause to show records that appear more than once `> 1`, and excluding those that only appear once.
   ```sql
 WITH groupby_count AS (
   SELECT 
-  id,
-  log_date,
-  measure,
-  measure_value,
-  systolic,
-  diastolic,
-  COUNT(*) AS frequency
+   id,
+   log_date,
+   measure,
+   measure_value,
+   systolic,
+   diastolic,
+   COUNT(*) AS frequency
 FROM health.user_logs
 GROUP BY 
-  id,
-  log_date,
-  measure,
-  measure_value,
-  systolic,
-  diastolic)
+   id,
+   log_date,
+   measure,
+   measure_value,
+   systolic,
+   diastolic)
 SELECT *
 FROM groupby_count
 WHERE frequency > 1
 ORDER BY frequency DESC;
 ```
+  
+#### Applying a condition using the `HAVING` clause to return the duplicate records and there frequencies
+  
+```sql
+DROP TABLE IF EXISTS unique_duplicate_records;
+
+CREATE TEMPORARY TABLE unique_duplicate_records AS
+SELECT *
+FROM health.user_logs
+GROUP BY
+  id,
+  log_date,
+  measure,
+  measure_value,
+  systolic,
+  diastolic
+HAVING COUNT(*) > 1;
+
+SELECT *
+FROM unique_duplicate_records
+LIMIT 10;
+```
+  
 > NOTES:
   1. We use `DISTINCT` to remove duplicate records from a dataset
   2. To calculate unique record counts we can use either CTEs or subqueries, however CTEs are better to use in terms of readability.
