@@ -219,7 +219,7 @@ ORDER BY frequency DESC;
 #### Using the `WHERE` clause to show records that appear more than once `> 1`, and excluding those that only appear once.
   ```sql
 WITH groupby_count AS (
-  SELECT 
+SELECT 
    id,
    log_date,
    measure,
