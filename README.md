@@ -162,14 +162,91 @@ LIMIT
 
 <details>
 <summary>
-Identifying Duplicates
+Identifying Duplicate Records
 </summary>
 
 ### 3 ways of identifying duplicates
 
-#### Subqueries
-#### CTE
-#### Temp Tables
+  #### Subqueries
+```sql
+SELECT COUNT(*)
+FROM (
+  SELECT DISTINCT *
+  FROM health.user_logs) AS subquery;
+ ```
+  
+  #### CTE
+```sql
+WITH cte_dedups AS (
+  SELECT distinct *
+  FROM health.user_logs)
+SELECT COUNT(*)
+FROM cte_dedups;
+```
+  
+  #### Temp Tables
+```sql
+DROP TABLE IF EXISTS deduplicated_user_logs;
+
+CREATE TEMP TABLE deduplicated_user_logs AS
+SELECT DISTINCT *
+FROM health.user_logs;
+
+SELECT COUNT(*)
+FROM deduplicated_user_logs;
+  ```
+#### Group by counts across all columns
+```sql
+ SELECT 
+  id,
+  log_date,
+  measure,
+  measure_value,
+  systolic,
+  diastolic,
+  COUNT(*) AS frequency
+FROM health.user_logs
+GROUP BY 
+  id,
+  log_date,
+  measure,
+  measure_value,
+  systolic,
+  diastolic
+ORDER BY frequency DESC;
+```
+
+#### Using `WHERE` clause to show records that appear more than once `> 1`, and excluding those that only appear once.
+  ```sql
+WITH groupby_count AS (
+  SELECT 
+  id,
+  log_date,
+  measure,
+  measure_value,
+  systolic,
+  diastolic,
+  COUNT(*) AS frequency
+FROM health.user_logs
+GROUP BY 
+  id,
+  log_date,
+  measure,
+  measure_value,
+  systolic,
+  diastolic)
+SELECT *
+FROM groupby_count
+WHERE frequency > 1
+ORDER BY frequency DESC;
+```
+> NOTES:
+  1. We use `DISTINCT` to remove duplicate records from a dataset
+  2. To calculate unique record counts we can use either CTEs or subqueries, however CTEs are better to use in terms of readability.
+  3. To detect the presence of duplicate records compare the basic record counts with the unique counts
+  4. We use the `GROUP BY` clause to identify the exact duplicate records across all columns in a table
+  5. We use the `HAVING` clause to filter records. NB we cannot use the alias name for an aggregate function in the `HAVING` clause i.e. we must use `COUNT(*)` eg. `COUNT(*) > 1` 
+ 
 </details>
 
 <details>
