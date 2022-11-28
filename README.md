@@ -165,7 +165,7 @@ LIMIT
 Identifying Duplicate Records
 </summary>
 
-### Dealing with duplicate records
+## Dealing with duplicate records
   
 #### 1. Using a `SELECT COUNT(*)` will return the total number of rows in the dataset.
   <img width="595" alt="count star" src="https://user-images.githubusercontent.com/111830926/204182009-38d04ebb-0bf0-47ee-b0a7-bc76d5fb8ded.png">
@@ -207,8 +207,14 @@ FROM health.user_logs;
 SELECT COUNT(*)
 FROM deduplicated_user_logs;
   ```
+  
 #### 3. Compare counts
-  The number of rows in the original table/dataset vs. the number of rows of the deduplicated table.
+  The row count in the original table/dataset vs. the row count of the deduplicated table.
+  
+  In this example the original table has 43891 rows and the deduplicated table has 31004 row, therefore we can conclude that there are duplicate records.
+  
+  
+## Other ways to identify duplicate records
   
   ### Group by counts across all columns
 ```sql
