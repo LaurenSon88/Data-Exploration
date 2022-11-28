@@ -165,9 +165,21 @@ LIMIT
 Identifying Duplicate Records
 </summary>
 
-### 3 ways of identifying duplicates
+### Dealing with duplicate records
+  
+#### 1. Using a `SELECT COUNT(*)` will return the total number of rows in the dataset.
+  <img width="595" alt="count star" src="https://user-images.githubusercontent.com/111830926/204182009-38d04ebb-0bf0-47ee-b0a7-bc76d5fb8ded.png">
 
-  #### Subqueries
+#### 2. Using `SELECT DISTINCT *` returns all the unique rows in the datatset, i.e. removing duplicate rows.
+  <img width="1157" alt="distinct" src="https://user-images.githubusercontent.com/111830926/204182247-301a075c-c737-49a9-8f00-29b5f60cfa04.png">
+
+  
+> **A problem arises when we want to count the number of distinct/unique rows. PostgreSQL does not allow for this:**
+  <img width="1150" alt="count-distinct" src="https://user-images.githubusercontent.com/111830926/204182501-e45771b9-3b55-420f-9220-f5b9510b5f1e.png">
+
+### There are 3 ways to get around this:
+
+  #### a. Subqueries
 ```sql
 SELECT COUNT(*)
 FROM (
@@ -175,7 +187,7 @@ FROM (
   FROM health.user_logs) AS subquery;
  ```
   
-  #### CTE
+  #### b. CTE (Common table expression)
 ```sql
 WITH cte_dedups AS (
   SELECT distinct *
@@ -184,7 +196,7 @@ SELECT COUNT(*)
 FROM cte_dedups;
 ```
   
-  #### Temp Tables
+  #### c. Temp Tables
 ```sql
 DROP TABLE IF EXISTS deduplicated_user_logs;
 
@@ -195,7 +207,10 @@ FROM health.user_logs;
 SELECT COUNT(*)
 FROM deduplicated_user_logs;
   ```
-#### Group by counts across all columns
+#### 3. Compare counts
+  The number of rows in the original table/dataset vs. the number of rows of the deduplicated table.
+  
+  ### Group by counts across all columns
 ```sql
  SELECT 
   id,
