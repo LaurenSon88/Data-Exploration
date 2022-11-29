@@ -297,6 +297,64 @@ LIMIT 10;
 <summary>
 Summary Statistics
 </summary>
+  
+  ### Mean, median and mode
+ 
+  #### Mean 
+```sql
+SELECT 
+  ROUND(AVG(measure_value),2) AS average_weight
+FROM health.user_logs
+WHERE measure = 'weight'
+ AND measure_value > 0
+ AND measure_value < 201;
+```
+<img width="263" alt="mean" src="https://user-images.githubusercontent.com/111830926/204466495-1437325c-cd65-495f-ba82-dd06d353065d.png">
+                   
+#### Median                         
+```sql
+SELECT 
+  ROUND(
+  CAST(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY measure_value) AS NUMERIC),
+  2) AS median_weight
+FROM health.user_logs
+WHERE measure = 'weight'
+ AND measure_value > 0
+ AND measure_value < 201;
+```      
+ <img width="249" alt="median" src="https://user-images.githubusercontent.com/111830926/204466540-6e60e384-db1d-4c51-8013-c04a929b5835.png">
+                      
+#### Mode
+```sql
+SELECT 
+  ROUND(
+   MODE() WITHIN GROUP (ORDER BY measure_value), 
+   2) AS mode_weight
+FROM health.user_logs
+WHERE measure = 'weight'
+ AND measure_value > 0
+ AND measure_value < 201;
+ ```
+  <img width="209" alt="mode" src="https://user-images.githubusercontent.com/111830926/204466582-db837e68-5b53-4f26-8dd9-277b0969bf4b.png">
+             
+  ### Max and min to get a range
+```sql
+SELECT 
+  MIN(measure_value) AS min_weight,
+  MAX(measure_value) AS max_weights,
+  MAX(measure_value) - MIN(measure_value) AS weight_range
+FROM health.user_logs
+WHERE measure = 'weight'
+ AND measure_value > 0
+ AND measure_value < 201;
+```
+<img width="525" alt="min max" src="https://user-images.githubusercontent.com/111830926/204466843-538245a3-e39b-4801-a2d1-b5e892fab5d1.png">
+
+
+  ### Variance and standard deviation
+  
+  ### 
+   
 </details>
 
 <details>
