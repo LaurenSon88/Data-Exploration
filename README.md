@@ -352,7 +352,17 @@ WHERE measure = 'weight'
 
 
   ### Variance and standard deviation
-  
+```sql
+SELECT ROUND(STDDEV(measure_value,2) AS standard_deviation
+FROM health.user_logs
+WHERE measure = 'weight'
+```
+
+```sql
+SELECT ROUND(VARIANCE(measure_value,2) AS variance_value
+FROM health.user_logs
+WHERE measure = 'weight'
+```
   ### 
    
 </details>
@@ -361,4 +371,73 @@ WHERE measure = 'weight'
 <summary>
 Distribution Functions
 </summary>
+  
+
+  ### Cumulative Distribution Function F(V)
+  
+#### SQL reverse engineering 
+  
+| Percentile | floor_value | ceiling_value | percentile_count |
+|------------|-------------|---------------|------------------|
+|      1     |     min     |      max      |     frequency    |
+|     100    |             |               |                  |
+  
+#### Data algorithm:
+  1. Sort values ascending
+  2. Assign 1 - 100 percentile value 
+  3. For each percentile
+     * calculate floor and ceiling values
+     * calculate record count
+
+```sql  
+WITH percentile_value AS (
+  SELECT 
+    measure_value,
+    NTILE(100) OVER(ORDER BY measure_value) AS percentile 
+  FROM health.user_logs
+  WHERE measure = 'weight'
+  )
+SELECT 
+  percentile,
+  MIN(measure_value) AS floor_value,
+  MAX(measure_value) AS ceiling_value,
+  COUNT(*) AS percentile_count
+FROM percentile_value
+GROUP BY percentile
+ORDER BY percentile;
+```
+> You need to inspect for outliers
+  - Look at 1st and 100th percentile
+  - Remove outliers
+
+  ```sql
+DROP TABLE IF EXISTS clean_weight_logs;
+CREATE TABLE clean_weight_logs AS(
+  SELECT *
+  FROM health.user_logs
+  WHERE measure = 'weight'
+    AND measure_value > 0
+    AND measure_value < 201);
+WITH percentile_value AS (
+  SELECT 
+    measure_value,
+    NTILE(100) OVER(ORDER BY measure_value) AS percentile 
+  FROM clean_weight_logs
+  )
+SELECT 
+  percentile,
+  MIN(measure_value) AS floor_value,
+  MAX(measure_value) AS ceiling_value,
+  COUNT(*) AS percentile_count
+FROM percentile_value
+GROUP BY percentile
+ORDER BY percentile                            
+  ```                           
+Visualize the cumulative distribution
+#### 15% of users are under 60kg
+<img width="825" alt="1st percentile" src="https://user-images.githubusercontent.com/111830926/204723518-851aeb57-27fb-4182-be11-ec38d7316cac.png">
+
+#### 99% of users are under 134kg
+<img width="825" alt="99th percentile" src="https://user-images.githubusercontent.com/111830926/204723549-df722571-53c4-4b35-8e26-aabe05105891.png">
+                            
 </details>
