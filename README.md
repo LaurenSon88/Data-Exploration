@@ -439,5 +439,18 @@ Visualize the cumulative distribution
 
 #### 99% of users are under 134kg
 <img width="825" alt="99th percentile" src="https://user-images.githubusercontent.com/111830926/204723549-df722571-53c4-4b35-8e26-aabe05105891.png">
-                            
+
+### Histogram/Frequency Plots
+
+#### WIDTH_BUCKET function
+```sql
+SELECT WIDTH_BUCKET(measure_value,0,200,50) AS buckets,
+       AVG(measure_value) AS mean_value,
+       COUNT(*) AS frequency
+FROM clean_weight_logs
+GROUP BY bucket
+ORDER BY bucket;
+```
+<img width="747" alt="width_bucket" src="https://user-images.githubusercontent.com/111830926/204728396-26fde2d8-61ff-4fb9-8af5-9740a15eae78.png">
+
 </details>
