@@ -408,6 +408,16 @@ ORDER BY percentile;
 ```
 > You need to inspect for outliers
   - Look at 1st and 100th percentile
+<figure>
+<img width="408" img src="https://user-images.githubusercontent.com/111830926/204946911-6ba19228-b0b9-4e92-bba4-fa292c35b255.png"/>
+</figure>
+<figure>
+<img width="408" img src="https://user-images.githubusercontent.com/111830926/204947074-f04aafa0-e6cc-4202-bb7f-ed8be10926f4.png"/>
+</figure>
+
+
+  
+
   - Remove outliers
 
   ```sql
@@ -432,7 +442,22 @@ SELECT
 FROM percentile_value
 GROUP BY percentile
 ORDER BY percentile                            
-  ```                           
+  ```          
+| percentile | floor_value | ceiling_value | frequency |
+|------------|-------------|---------------|-----------|
+| 1          | 1.814368    | 29.48348      | 28        |
+| 2          | 29.48348    | 32.4771872    | 28        |
+| 3          | 32.658623   | 35.380177     | 28        |
+| 4          | 35.380177   | 36.74095      | 28        |
+| 5          | 36.74095    | 37.194546     | 28        |
+| ...        | ...         | ...           | ...       |
+| 95         | 129.77278   | 130.52802     | 27        |
+| 96         | 130.5389    | 131.54168     | 27        |
+| 97         | 131.54169   | 132.6599      | 27        |
+| 98         | 132.736     | 133.765       | 27        |
+| 99         | 133.80965   | 136.0776      | 27        |
+| 100        | 136.0776    | 200.487664    | 27        |
+                             
 Visualize the cumulative distribution
 #### 15% of users are under 60kg
 <img width="825" alt="1st percentile" src="https://user-images.githubusercontent.com/111830926/204723518-851aeb57-27fb-4182-be11-ec38d7316cac.png">
