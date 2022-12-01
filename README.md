@@ -458,7 +458,7 @@ ORDER BY percentile
 | 99         | 133.80965   | 136.0776      | 27        |
 | 100        | 136.0776    | 200.487664    | 27        |
                              
-Visualize the cumulative distribution
+### Visualize the cumulative distribution
 #### 15% of users are under 60kg
 <img width="825" alt="1st percentile" src="https://user-images.githubusercontent.com/111830926/204723518-851aeb57-27fb-4182-be11-ec38d7316cac.png">
 
