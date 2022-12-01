@@ -1,5 +1,5 @@
 # Data-Exploration
-### The following is a compilation of SQL queries takening from [Serious SQL](https://www.datawithdanny.com/courses/serious-sql) to show my understanding of SQL
+### The following is a compilation of SQL queries takening from [Serious SQL](https://www.datawithdanny.com/courses/serious-sql) to document my learning and show my understanding of SQL
 
 <details>
 <summary>
